@@ -1,0 +1,14 @@
+$kind: http-request
+description: ""
+url: ?delete=http://localhost:3000/api/transactions/71a59444-5611-422a-9957-204b00a4ae3d/7b2820a4-99e2-43c8-bcbb-4d1bb02385b4
+method: DELETE
+queryParams:
+  - key: delete
+    value: http://localhost:3000/api/transactions/71a59444-5611-422a-9957-204b00a4ae3d/7b2820a4-99e2-43c8-bcbb-4d1bb02385b4
+    disabled: false
+    description: ""
+  - key: accountId
+    value: 71a59444-5611-422a-9957-204b00a4ae3d
+    disabled: true
+    description: ""
+order: 2000

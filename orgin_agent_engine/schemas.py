@@ -28,3 +28,11 @@ class FinancialPlan(BaseModel):
     simulated_scenarios: List[SimulatedScenario] = Field(description="2 to 3 simulated alternative budget plans")
     selected_strategy: SimulatedScenario = Field(description="The single best strategy autonomously chosen by the agent")
     selection_reasoning: str = Field(description="Why the agent selected this specific strategy")
+
+class MonitoringReport(BaseModel):
+    strategy_evaluated: str = Field(description="Name of the active strategy being monitored")
+    compliance_status: Literal["On Track", "Partially Compliant", "Off Track"] = Field(description="Whether the user followed the strategy")
+    observed_behavior_summary: str = Field(description="Analysis of new incoming transactions against the strategy rules")
+    estimated_actual_savings: float = Field(description="Actual INR saved based on recent behavior")
+    decision: Literal["Retain Strategy", "Revise Strategy"] = Field(description="Whether to keep the current plan or adapt it")
+    adapted_recommendations: List[str] = Field(description="Updated actionable recommendations based on observed behavior")

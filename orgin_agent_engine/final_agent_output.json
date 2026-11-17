@@ -1,0 +1,113 @@
+{
+  "user_id": "usr_101",
+  "investigation_report": {
+    "findings": [
+      {
+        "transaction_id": "tx_901",
+        "merchant": "Swiggy",
+        "amount": 2500.0,
+        "is_recurring": false,
+        "possible_explanation": "This is a one-time spending spike significantly higher than the usual food delivery transactions, such as the \u20b9580 on 2026-11-09 and \u20b9220 on 2026-11-02.",
+        "supporting_evidence": [
+          "Swiggy transaction of \u20b9220 on 2026-11-02",
+          "Swiggy transaction of \u20b9580 on 2026-11-09",
+          "Zomato transaction of \u20b9310 on 2026-11-05"
+        ],
+        "confidence_level": "High",
+        "clarification_needed": false,
+        "clarification_question": "",
+        "suggested_corrective_action": "Review the order details to check if this was a bulk order or group dinner, and consider setting a strict single-transaction limit for food deliveries."
+      },
+      {
+        "transaction_id": "tx_902",
+        "merchant": "Netflix India",
+        "amount": 649.0,
+        "is_recurring": true,
+        "possible_explanation": "This is a stealth subscription price hike. The monthly charge increased from the historical rate of \u20b9499 to \u20b9649.",
+        "supporting_evidence": [
+          "Netflix India transaction of \u20b9499 on 2026-10-15",
+          "Netflix India transaction of \u20b9499 on 2026-09-15"
+        ],
+        "confidence_level": "High",
+        "clarification_needed": false,
+        "clarification_question": "",
+        "suggested_corrective_action": "Check your Netflix account to review current plan tiers and downgrade to the previous plan if the new pricing does not align with your subscription budget."
+      }
+    ]
+  },
+  "financial_plan": {
+    "budget_overrun_warnings": [
+      "Food category has exceeded the monthly limit by \u20b91850",
+      "Subscriptions category has exceeded the monthly limit by \u20b9499"
+    ],
+    "simulated_scenarios": [
+      {
+        "strategy_name": "Conservative Adjustments",
+        "target_categories": [
+          "Food",
+          "Subscriptions"
+        ],
+        "specific_actions": [
+          "Cancel one premium subscription to bring total back under \u20b91000 limit",
+          "Set a firm Swiggy/Zomato limit of \u20b9600 per order"
+        ],
+        "projected_monthly_savings": 1200.0,
+        "practicality_score": 8
+      },
+      {
+        "strategy_name": "Balanced Optimization",
+        "target_categories": [
+          "Food",
+          "Subscriptions"
+        ],
+        "specific_actions": [
+          "Downgrade Netflix plan to the \u20b9499 tier",
+          "Limit food delivery to twice a week with a max budget of \u20b9400 per order"
+        ],
+        "projected_monthly_savings": 1850.0,
+        "practicality_score": 7
+      },
+      {
+        "strategy_name": "Aggressive Austerity",
+        "target_categories": [
+          "Food",
+          "Subscriptions",
+          "Shopping"
+        ],
+        "specific_actions": [
+          "Pause all non-essential subscriptions for 2 months",
+          "Home-cook all meals for the remainder of the month",
+          "Freeze discretionary shopping for 30 days"
+        ],
+        "projected_monthly_savings": 3500.0,
+        "practicality_score": 4
+      }
+    ],
+    "selected_strategy": {
+      "strategy_name": "Balanced Optimization",
+      "target_categories": [
+        "Food",
+        "Subscriptions"
+      ],
+      "specific_actions": [
+        "Downgrade Netflix plan to the \u20b9499 tier",
+        "Limit food delivery to twice a week with a max budget of \u20b9400 per order"
+      ],
+      "projected_monthly_savings": 1850.0,
+      "practicality_score": 7
+    },
+    "selection_reasoning": "The Balanced Optimization strategy directly addresses the identified anomalies (the Netflix price hike and the high-value Swiggy transaction) while maintaining a reasonable lifestyle. It achieves significant savings that cover the current budget overrun without forcing extreme lifestyle restrictions like total subscription cancellation or stopping all shopping, ensuring high sustainability."
+  },
+  "monitoring_report": {
+    "strategy_evaluated": "Balanced Optimization",
+    "compliance_status": "Partially Compliant",
+    "observed_behavior_summary": "The user successfully downgraded the Netflix subscription and kept food delivery within the twice-weekly limit with orders under 400 INR. However, spending in Shopping spiked significantly with an 1800 INR transaction on Myntra, pushing total category spending off track.",
+    "estimated_actual_savings": 1400.0,
+    "decision": "Revise Strategy",
+    "adapted_recommendations": [
+      "Keep the Netflix subscription downgraded at the 499 tier",
+      "Maintain strict food delivery limits of twice a week under 400 INR per order",
+      "Set a strict weekly cap of 1000 INR on Shopping to compensate for the Myntra overspend"
+    ]
+  }
+}

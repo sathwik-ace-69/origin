@@ -1,0 +1,18 @@
+$kind: http-request
+name: http://localhost:3000/api/transactions/71a59444-5611-422a-9957-204b00a4ae3d/7b2820a4-99e2-43c8-bcbb-4d1bb02385b4
+description: ""
+url: http://localhost:3000/api/transactions/71a59444-5611-422a-9957-204b00a4ae3d/7b2820a4-99e2-43c8-bcbb-4d1bb02385b4
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "date": "2026-11-14",
+        "description": "Updated Amazon Purchase",
+        "merchant": "Amazon",
+        "debit": 750,
+        "credit": 0,
+        "balance": 9250,
+        "currency": "INR"
+    }
+order: 1000

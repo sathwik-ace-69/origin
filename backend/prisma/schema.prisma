@@ -1,0 +1,116 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  accounts   Account[]
+  budgets    Budget[]
+  categories Category[]
+  reports    InvestigationReport[]
+  auditLogs  AuditLog[]
+}
+
+model Account {
+  id                 String   @id @default(uuid()) @db.Uuid
+  userId             String   @db.Uuid
+  bankName           String
+  accountType        String?
+  accountNumberLast4 String?
+  currency           String   @default("INR")
+  createdAt          DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@index([userId])
+}
+
+model Category {
+  id     String  @id @default(uuid()) @db.Uuid
+  userId String? @db.Uuid
+  name   String
+
+  user         User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  budgets      Budget[]
+
+  @@unique([userId, name])
+}
+
+model Transaction {
+  id         String  @id @default(uuid()) @db.Uuid
+  accountId  String  @db.Uuid
+  categoryId String? @db.Uuid
+
+  date        DateTime @db.Date
+  description String
+  merchant    String?
+
+  debit   Decimal  @default(0) @db.Decimal(14, 2)
+  credit  Decimal  @default(0) @db.Decimal(14, 2)
+  balance Decimal? @db.Decimal(14, 2)
+
+  currency    String  @default("INR")
+  fingerprint String?
+
+  createdAt DateTime @default(now())
+
+  account  Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  @@unique([accountId, fingerprint])
+  @@index([accountId, date])
+  @@index([categoryId])
+}
+
+model Budget {
+  id         String  @id @default(uuid()) @db.Uuid
+  userId     String  @db.Uuid
+  categoryId String? @db.Uuid
+
+  amount    Decimal  @db.Decimal(14, 2)
+  period    String
+  startDate DateTime @db.Date
+  endDate   DateTime @db.Date
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+}
+
+model InvestigationReport {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String   @db.Uuid
+  title      String
+  reportData Json
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String   @db.Uuid
+  action     String
+  entityType String?
+  entityId   String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}

@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Generated files
+generated/
+uploads/
+
+# OS files
+.DS_Store
+
+# Local tools
+.agents/
+.claude/
+.windsurf/
+.postman/
+
+# Temporary test files
+test-*.js
+create-*.js
+test-data/

@@ -30,5 +30,11 @@
     {"date": "2026-11-09", "merchant": "Swiggy", "category": "Food", "amount": 580},
     {"date": "2026-10-15", "merchant": "Netflix India", "category": "Subscriptions", "amount": 499},
     {"date": "2026-09-15", "merchant": "Netflix India", "category": "Subscriptions", "amount": 499}
+  ],
+  "new_incoming_transactions": [
+    {"date": "2026-11-18", "merchant": "Swiggy", "category": "Food", "amount": 240},
+    {"date": "2026-11-21", "merchant": "Zomato", "category": "Food", "amount": 290},
+    {"date": "2026-11-22", "merchant": "Netflix India Refund/Downgrade", "category": "Subscriptions", "amount": -150},
+    {"date": "2026-11-23", "merchant": "Myntra", "category": "Shopping", "amount": 1800}
   ]
 }
