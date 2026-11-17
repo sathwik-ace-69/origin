@@ -1,4 +1,5 @@
-
+from prepare_qdrant_data import prepare_qdrant_data
+from embedding import generate_embedding
 import json
 import os
 from categorizer import categorize_transaction
@@ -23,14 +24,21 @@ def run_analytics():
     categorized = []
 
     for transaction in transactions:
-        result = categorize_transaction(transaction["merchant"])
+        description = (
+            f"Payment of {transaction['amount']} "
+            f"at {transaction['merchant']}"
+        )
+
+        vector = generate_embedding(description)
+        result = categorize_transaction(description, vector)
 
         categorized.append({
             "transaction_id": transaction["transaction_id"],
             "merchant": transaction["merchant"],
             "amount": transaction["amount"],
             "category": result["category"],
-            "confidence": result["confidence"]
+            "confidence": result["confidence"],
+            "embedding": vector
         })
 
     anomalies = {
@@ -55,8 +63,9 @@ def run_analytics():
         "budget_analytics": budgets
     }
 
-
 if __name__ == "__main__":
     result = run_analytics()
+
+    prepare_qdrant_data(result)
 
     print(json.dumps(result, indent=4))

@@ -1,5 +1,35 @@
-.venv/
+
+# Environment variables and secrets
 .env
+.env.*
+!.env.example
+
+# Python virtual environments
+venv/
+.venv/
+env/
+
+# Python cache and compiled files
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Generated analytics output
+/analytics_output.json
+analytics_engine/qdrant_export.json
+analytics_engine/transaction_vectors.json
+
+# Node.js dependencies
+node_modules/
+
+# macOS system files
 .DS_Store
+
+# IDE settings
+.vscode/
+.idea/
