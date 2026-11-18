@@ -12,12 +12,18 @@ from recurring_detector import detect_recurring_payments
 from budget_analyzer import analyze_budgets
 
 
-def run_analytics():
-    base_directory = os.path.dirname(os.path.abspath(__file__))
-    data_path = os.path.join(base_directory, "..", "mock_data.json")
+def run_analytics(data=None):
+    if data is None:
+        base_directory = os.path.dirname(os.path.abspath(__file__))
+        data_path = os.path.join(
+    base_directory,
+    "..",
+    "orgin_agent_engine",
+    "mock_data.json"
+)
 
-    with open(data_path, "r") as file:
-        data = json.load(file)
+        with open(data_path, "r") as file:
+            data = json.load(file)
     transactions = data["flagged_anomalies"]
     history = data["historical_context"]
 
@@ -57,11 +63,18 @@ def run_analytics():
 
     return {
         "user_id": data["user_id"],
-        "categorized_transactions": categorized,
-        "anomalies": anomalies,
-        "recurring_payments": recurring,
-        "budget_analytics": budgets
-    }
+        "budgets": data["budgets"],
+        "flagged_anomalies": transactions,
+        "historical_context": history,
+        "new_incoming_transactions": data.get(
+            "new_incoming_transactions", []
+    ),
+
+    "categorized_transactions": categorized,
+    "anomalies": anomalies,
+    "recurring_payments": recurring,
+    "budget_analytics": budgets
+}
 
 if __name__ == "__main__":
     result = run_analytics()

@@ -1,3 +1,15 @@
+import os
+import sys
+
+# Add analytics_engine folder to Python's import path
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ANALYTICS_DIR = os.path.join(ROOT_DIR, "analytics_engine")
+
+sys.path.insert(0, ANALYTICS_DIR)
+
+from main import run_analytics
+
+
 import json
 from typing import TypedDict, Optional
 from langgraph.graph import StateGraph, START, END
@@ -14,6 +26,13 @@ class OrginAgentState(TypedDict):
 
 def investigation_node(state: OrginAgentState):
     print("-> [Orchestrator] Routing to Expense Investigation Agent...")
+
+    analytics = state["input_data"].get("transaction_analytics", {})
+    print(
+        "Analytics transactions received:",
+        len(analytics.get("categorized_transactions", []))
+    )
+
     report = run_expense_investigation(state["input_data"])
     return {"investigation_report": report.model_dump()}
 
@@ -48,8 +67,17 @@ def build_orgin_graph():
     return workflow.compile()
 
 if __name__ == "__main__":
-    with open("mock_data.json", "r") as f:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    mock_data_path = os.path.join(base_dir, "mock_data.json")
+
+    with open(mock_data_path, "r") as f:
         mock_data = json.load(f)
+
+    print("Running transaction analytics...")
+    analytics_data = run_analytics(mock_data)
+
+    print("Transaction analytics completed!")
+    mock_data["transaction_analytics"] = analytics_data
 
     print("Starting ORGIN Central Agentic Orchestrator...\n")
     app = build_orgin_graph()
